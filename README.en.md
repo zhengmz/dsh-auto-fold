@@ -1,7 +1,7 @@
 # dsh-auto-fold
 
-> Automatically load the full conversation history when a session opens, so the official native per-turn folding engages immediately.
-> 打开会话自动加载全部历史，让官方原生回合折叠立即生效。
+> Fills in the missing capability for DSH to auto-fold when the conversation display is set to Compact.
+> 补齐 DSH 在对话显示设为 Compact（紧凑）时无法自动折叠的能力
 
 [中文](README.md) · MIT
 
