@@ -71,9 +71,9 @@ localStorage.removeItem('dsh-auto-fold.disabled')     // re-enable
 
 ## Compatibility
 
-- DeepSeek Harness `>= 0.1.2-rc.1` (Web profile)
+- Compatible with DeepSeek Harness `0.1.2-rc.1` - `0.1.5-rc.2` (Web profile)
 - Pure client plugin: no host behavior, no telemetry, no network requests
-- Relies on snapshot fields (`openState` / `hasMore` / `loadingOlder`), the `conversation.composer.dock` slot, and the `ui-chat.transcriptView` setting, verified against 0.1.2-rc.1
+- Relies on snapshot fields (`openState` / `hasMore` / `loadingOlder`), the `conversation.composer.dock` slot, and the `ui-chat.transcriptView` setting, verified against 0.1.2-rc.1 / 0.1.5-rc.2
 
 ## Known limitations
 

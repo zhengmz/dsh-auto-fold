@@ -71,9 +71,9 @@ localStorage.removeItem('dsh-auto-fold.disabled')     // 恢复
 
 ## 兼容性
 
-- DeepSeek Harness `>= 0.1.2-rc.1`（Web profile）
+- 兼容 DeepSeek Harness `0.1.2-rc.1` - `0.1.5-rc.2`（Web profile）
 - 纯浏览器端插件：无宿主行为、无数据上报、无网络请求
-- 依赖的会话快照字段（`openState` / `hasMore` / `loadingOlder`）、槽位 `conversation.composer.dock` 与 `ui-chat.transcriptView` 设置在 0.1.2-rc.1 已验证
+- 依赖的会话快照字段（`openState` / `hasMore` / `loadingOlder`）、槽位 `conversation.composer.dock` 与 `ui-chat.transcriptView` 设置在 0.1.2-rc.1 / 0.1.5-rc.2 已验证
 
 ## 已知限制
 
