@@ -20,24 +20,26 @@ History complete (hasMore=false) →  official native per-turn folding takes ove
 - **Zero interaction**: runs automatically on session open, no button to press;
 - **No extra fold rows**: renders no fold bars or summaries of its own — folding is entirely the official native one;
 - **No takeover**: never touches `transcriptView`; the official "fold only when data is complete" guarantee stays intact;
-- **Always authoritative**: fold summaries (counts, boundaries) are computed from complete history, never approximate.
+- **Always authoritative**: fold summaries (counts, boundaries) are computed from complete history, never approximate;
+- **Compact mode only**: backfill runs only when the official "Turn folding mode" is **Compact** (the default); when explicitly set to **Normal** it is skipped to avoid pointless loading.
 
 ## How it works
 
 Pure browser-side plugin mounted on the official session-scoped slot `conversation.composer.dock` (renders nothing once loading finishes):
 
 1. Reads the session snapshot (`useSession`) and `sessionId` from the slot's standard props;
-2. When `openState === 'open'` and `hasMore === true`, calls the official session method `session.loadThrough(0)`;
-3. `loadThrough` pages backward (200 messages per page) until `hasMore === false`, with a built-in no-progress guard;
-4. While paging, a single subtle "正在补齐历史…" hint line is shown (not a fold row) and disappears when done;
-5. Once `hasMore === false`, the official native per-turn folding engages.
+2. Reads `transcriptView` from the official `ui-chat` settings namespace via `settingsScope`; continues only when it is `compact` (the default);
+3. When `openState === 'open'` and `hasMore === true`, calls the official session method `session.loadThrough(0)`;
+4. `loadThrough` pages backward (200 messages per page) until `hasMore === false`, with a built-in no-progress guard;
+5. While paging, a single subtle "正在补齐历史…" hint line is shown (not a fold row) and disappears when done;
+6. Once `hasMore === false`, the official native per-turn folding engages.
 
 `loadThrough` is idempotent: repeated triggers (streaming appends / in-flight) are safe no-ops. Session switches are followed automatically.
 
 ## Install
 
 ```bash
-dsh plugin --profile web add dsh-auto-fold
+dsh plugin --profile web add github:zhengmz/dsh-auto-fold
 ```
 
 Or from a local checkout:
@@ -71,7 +73,7 @@ localStorage.removeItem('dsh-auto-fold.disabled')     // re-enable
 
 - DeepSeek Harness `>= 0.1.2-rc.1` (Web profile)
 - Pure client plugin: no host behavior, no telemetry, no network requests
-- Relies on snapshot fields (`openState` / `hasMore` / `loadingOlder`) and the `conversation.composer.dock` slot, verified against 0.1.2-rc.1
+- Relies on snapshot fields (`openState` / `hasMore` / `loadingOlder`), the `conversation.composer.dock` slot, and the `ui-chat.transcriptView` setting, verified against 0.1.2-rc.1
 
 ## Known limitations
 

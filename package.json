@@ -1,7 +1,7 @@
 {
   "name": "dsh-auto-fold",
   "version": "0.1.0",
-  "description": "打开会话自动加载全部历史，让官方原生回合折叠立即生效：不新增折叠行、不接管官方设置、数据完整无偏差。Auto-loads the full conversation history on session open so the official native per-turn folding engages — no extra fold rows, no takeover, always data-complete.",
+  "description": "官方回合折叠模式为 Compact 时，打开会话自动加载全部历史，让官方原生回合折叠立即生效：不新增折叠行、不接管官方设置、数据完整无偏差。When the official turn-folding mode is Compact, auto-loads the full conversation history on session open so the official native per-turn folding engages — no extra fold rows, no takeover, always data-complete.",
   "type": "module",
   "main": "lib/index.mjs",
   "exports": {

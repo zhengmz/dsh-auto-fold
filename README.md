@@ -20,24 +20,26 @@ DeepSeek Harness Web 打开一个旧会话时，只加载最近 50 条消息；�
 - **零按钮**：打开会话即自动执行，无需点击；
 - **不新增折叠行**：不渲染任何自己的折叠栏/摘要，折叠完全由官方原生完成；
 - **不接管官方设置**：不改 `transcriptView`，官方"数据完整才折叠"的保证原样保留；
-- **数据完整无偏差**：折叠摘要里的次数/边界都基于完整历史，绝无偏差。
+- **数据完整无偏差**：折叠摘要里的次数/边界都基于完整历史，绝无偏差；
+- **仅 Compact 模式生效**：官方「回合折叠方式」为 **Compact**（默认值）时才自动补齐历史；显式设为 **Normal** 时跳过，避免无谓加载。
 
 ## 工作原理
 
 纯浏览器端插件，挂在官方会话级槽位 `conversation.composer.dock`（列表槽，加载完成后不渲染任何可见内容）：
 
 1. 通过槽位标准 props 拿到会话快照（`useSession`）与 `sessionId`；
-2. 快照 `openState === 'open'` 且 `hasMore === true` 时，调用官方会话方法 `session.loadThrough(0)`；
-3. `loadThrough` 内部按 200 条/页向后翻页直到 `hasMore === false`，自带防死循环保护（无进展即停）；
-4. 补齐期间显示一行轻量提示「正在补齐历史…」（非折叠行），完成后自动消失；
-5. `hasMore === false` 后官方原生回合折叠自动生效。
+2. 通过官方 `settingsScope` 读取 `ui-chat` 命名空间的 `transcriptView`：仅当为 `compact`（默认）时继续；
+3. 快照 `openState === 'open'` 且 `hasMore === true` 时，调用官方会话方法 `session.loadThrough(0)`；
+4. `loadThrough` 内部按 200 条/页向后翻页直到 `hasMore === false`，自带防死循环保护（无进展即停）；
+5. 补齐期间显示一行轻量提示「正在补齐历史…」（非折叠行），完成后自动消失；
+6. `hasMore === false` 后官方原生回合折叠自动生效。
 
 `loadThrough` 是幂等的：重复触发（流式追加/加载中）是安全 no-op，不会重复翻页。切换会话自动跟随。
 
 ## 安装
 
 ```bash
-dsh plugin --profile web add dsh-auto-fold
+dsh plugin --profile web add github:zhengmz/dsh-auto-fold
 ```
 
 或从本地源码安装：
@@ -71,7 +73,7 @@ localStorage.removeItem('dsh-auto-fold.disabled')     // 恢复
 
 - DeepSeek Harness `>= 0.1.2-rc.1`（Web profile）
 - 纯浏览器端插件：无宿主行为、无数据上报、无网络请求
-- 依赖的会话快照字段（`openState` / `hasMore` / `loadingOlder`）与槽位 `conversation.composer.dock` 在 0.1.2-rc.1 已验证
+- 依赖的会话快照字段（`openState` / `hasMore` / `loadingOlder`）、槽位 `conversation.composer.dock` 与 `ui-chat.transcriptView` 设置在 0.1.2-rc.1 已验证
 
 ## 已知限制
 
