@@ -1,0 +1,36 @@
+{
+  "name": "dsh-auto-fold",
+  "version": "0.1.0",
+  "description": "打开会话自动加载全部历史，让官方原生回合折叠立即生效：不新增折叠行、不接管官方设置、数据完整无偏差。Auto-loads the full conversation history on session open so the official native per-turn folding engages — no extra fold rows, no takeover, always data-complete.",
+  "type": "module",
+  "main": "lib/index.mjs",
+  "exports": {
+    ".": {
+      "default": "./lib/index.mjs"
+    },
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "fold",
+    "collapse",
+    "turn-process",
+    "history",
+    "autoload"
+  ],
+  "license": "MIT"
+}

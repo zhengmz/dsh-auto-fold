@@ -1,0 +1,5 @@
+# dsh-auto-fold bundle: pure client plugin — the Node half is an
+# empty apply so the bundle mounts; all behavior lives in the browser half.
+- insert:
+    - id: dsh-auto-fold
+      name: dsh-auto-fold
